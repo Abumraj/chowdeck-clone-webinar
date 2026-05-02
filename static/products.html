@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu – Chowdeck</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <span>🍽️</span> Chowdeck
+      </a>
+      <div class="nav-location">📍 Delivering to <strong>Lagos, Nigeria</strong></div>
+      <div class="nav-search">
+        <input type="text" placeholder="Search for food, restaurants..." id="searchInput">
+      </div>
+      <div class="nav-actions">
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="products.html" class="active">Menu</a>
+        </div>
+        <button class="nav-cart" id="cartBtn">
+          🛒 Cart <span class="badge" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="container">
+      <h1>🍽️ Our Menu</h1>
+      <p>Browse our full collection of delicious meals from top restaurants.</p>
+    </div>
+  </div>
+
+  <!-- Categories Filter -->
+  <section class="section" style="padding-bottom: 0;">
+    <div class="container">
+      <div class="categories" id="categoriesFilter"></div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="section">
+    <div class="container">
+      <div class="filter-bar">
+        <span class="result-count" id="resultCount">Showing <strong>12</strong> items</span>
+        <select class="sort-select" id="sortSelect">
+          <option value="default">Sort by: Popular</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="rating">Top Rated</option>
+          <option value="delivery">Fastest Delivery</option>
+        </select>
+      </div>
+      <div class="product-grid" id="productsGrid"></div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="section">
+    <div class="container">
+      <div class="banner-cta">
+        <h2>Can't decide? Let us help! 🤔</h2>
+        <p>Tell us what you're craving and we'll recommend the perfect meal.</p>
+        <a href="index.html" class="btn">Back to Home →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>🍽️ Chowdeck</h3>
+          <p>Nigeria's favourite food delivery platform. Order from the best local restaurants and get it delivered fast.</p>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Chowdeck Clone – Webinar Demo</span>
+        <div class="footer-socials">
+          <a href="#">🐦</a>
+          <a href="#">📸</a>
+          <a href="#">💼</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="version-badge">
+    HTML/CSS/JS <a href="app/">Try React Version →</a>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    renderCategories('categoriesFilter');
+    renderProductGrid('productsGrid', products);
+    setupSort();
+
+    // Live search
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      const filtered = products.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.restaurant.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q)
+      );
+      renderProductGrid('productsGrid', filtered);
+      updateResultCount(filtered.length);
+    });
+  </script>
+</body>
+</html>
