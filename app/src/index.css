@@ -725,6 +725,25 @@ button { cursor: pointer; border: none; font-family: inherit; }
 
 .version-badge a { color: var(--primary); margin-left: 6px; }
 
+/* ===== Attendees List Page ===== */
+.attendees-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .attendees-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .attendees-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ===== Toast ===== */
 .toast {
   position: fixed;
