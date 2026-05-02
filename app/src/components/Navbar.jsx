@@ -24,6 +24,9 @@ export default function Navbar() {
             <NavLink to="/products" className={({ isActive }) => isActive ? 'active' : ''}>
               Menu
             </NavLink>
+            <NavLink to="/attendees" className={({ isActive }) => isActive ? 'active' : ''}>
+              Attendees
+            </NavLink>
           </div>
           <button className="nav-cart">
             🛒 Cart <span className="badge">{cartCount}</span>

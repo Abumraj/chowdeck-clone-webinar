@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import HeroSection from '../components/HeroSection'
 import ProductCard from '../components/ProductCard'
+import AttendeesCarousel from '../components/AttendeesCarousel'
 import { products, categories } from '../data/products'
 
 export default function Home() {
@@ -42,6 +43,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <AttendeesCarousel />
 
       {/* How It Works */}
       <section className="section how-it-works">

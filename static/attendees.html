@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu – Chowdeck</title>
+  <title>Webinar Attendees – Chowdeck</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
 </head>
@@ -17,13 +17,13 @@
       </a>
       <div class="nav-location">📍 Delivering to <strong>Lagos, Nigeria</strong></div>
       <div class="nav-search">
-        <input type="text" placeholder="Search for food, restaurants..." id="searchInput">
+        <input type="text" placeholder="Search for food, restaurants...">
       </div>
       <div class="nav-actions">
         <div class="nav-links">
           <a href="index.html">Home</a>
-          <a href="products.html" class="active">Menu</a>
-          <a href="attendees.html">Attendees</a>
+          <a href="products.html">Menu</a>
+          <a href="attendees.html" class="active">Attendees</a>
         </div>
         <button class="nav-cart" id="cartBtn">
           🛒 Cart <span class="badge" id="cartCount">0</span>
@@ -35,32 +35,26 @@
   <!-- Page Header -->
   <div class="page-header">
     <div class="container">
-      <h1>🍽️ Our Menu</h1>
-      <p>Browse our full collection of delicious meals from top restaurants.</p>
+      <h1>👥 Webinar Attendees</h1>
+      <p>Meet the amazing people joining our AI webinar. Learn about their backgrounds and what brings them here!</p>
     </div>
   </div>
 
-  <!-- Categories Filter -->
-  <section class="section" style="padding-bottom: 0;">
-    <div class="container">
-      <div class="categories" id="categoriesFilter"></div>
-    </div>
-  </section>
-
-  <!-- Products -->
+  <!-- Attendees List -->
   <section class="section">
     <div class="container">
       <div class="filter-bar">
-        <span class="result-count" id="resultCount">Showing <strong>12</strong> items</span>
-        <select class="sort-select" id="sortSelect">
-          <option value="default">Sort by: Popular</option>
-          <option value="price-low">Price: Low to High</option>
-          <option value="price-high">Price: High to Low</option>
-          <option value="rating">Top Rated</option>
-          <option value="delivery">Fastest Delivery</option>
-        </select>
+        <span class="result-count">
+          Showing <strong>12</strong> attendees
+        </span>
+        <input
+          type="text"
+          placeholder="Search attendees..."
+          id="attendeeSearch"
+          style="padding: 8px 16px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.85rem; outline: none; flex: 1; max-width: 300px; margin: 0 12px;"
+        />
       </div>
-      <div class="product-grid" id="productsGrid"></div>
+      <div class="attendees-grid" id="attendeesList"></div>
     </div>
   </section>
 
@@ -68,8 +62,8 @@
   <section class="section">
     <div class="container">
       <div class="banner-cta">
-        <h2>Can't decide? Let us help! 🤔</h2>
-        <p>Tell us what you're craving and we'll recommend the perfect meal.</p>
+        <h2>Want to join our next webinar? 🎓</h2>
+        <p>Stay updated with our upcoming AI and tech workshops.</p>
         <a href="index.html" class="btn">Back to Home →</a>
       </div>
     </div>
@@ -125,23 +119,27 @@
 
   <div class="toast" id="toast"></div>
 
-  <script src="js/data.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/attendees.js"></script>
   <script>
-    renderCategories('categoriesFilter');
-    renderProductGrid('productsGrid', products);
-    setupSort();
+    renderAttendeesList();
 
     // Live search
-    document.getElementById('searchInput').addEventListener('input', (e) => {
+    document.getElementById('attendeeSearch').addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase();
-      const filtered = products.filter(p =>
-        p.name.toLowerCase().includes(q) ||
-        p.restaurant.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q)
-      );
-      renderProductGrid('productsGrid', filtered);
-      updateResultCount(filtered.length);
+      const cards = document.querySelectorAll('.attendee-card-full');
+      let visible = 0;
+      
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(q)) {
+          card.style.display = 'flex';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.querySelector('.result-count').innerHTML = `Showing <strong>${visible}</strong> attendees`;
     });
   </script>
 </body>
